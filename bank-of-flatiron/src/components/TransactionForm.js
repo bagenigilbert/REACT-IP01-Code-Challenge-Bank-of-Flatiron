@@ -1,25 +1,27 @@
 // TransactionForm.js
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
 
 const TransactionForm = ({ onAddTransaction }) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
-  const [date, setDate] = useState(""); // Add date state
+  const [date, setDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTransaction = {
+      id: uuidv4(), // Generate a unique ID using uuid
       description,
       amount,
       category,
-      date, // Include the date in the new transaction object
+      date,
     };
     onAddTransaction(newTransaction);
     setDescription("");
     setAmount("");
     setCategory("");
-    setDate(""); // Clear the date input after submitting
+    setDate("");
   };
 
   return (
@@ -45,7 +47,7 @@ const TransactionForm = ({ onAddTransaction }) => {
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
-          type="date" // Use a date input field for the date
+          type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />

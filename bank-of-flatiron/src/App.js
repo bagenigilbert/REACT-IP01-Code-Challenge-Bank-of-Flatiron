@@ -1,5 +1,6 @@
 // App.js
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
 import TransactionTable from "./components/TransactionTable";
 import TransactionForm from "./components/TransactionForm";
 import SearchBar from "./components/SearchBar";
@@ -17,28 +18,42 @@ const App = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  // Load transactions from local storage when the component mounts.
+  useEffect(() => {
+    const storedTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    setTransactions(storedTransactions);
+  }, []);
+
+  // Store transactions in local storage whenever the transactions state changes.
+  useEffect(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
+
   const handleAddTransaction = (newTransaction) => {
-    // In a real application, you would typically make an API call to save the newTransaction data to the server.
-    // For this example, we will update the transactions state directly.
-    setTransactions([...transactions, newTransaction]);
+    // Generate a unique ID using uuid
+    const transactionWithId = { ...newTransaction, id: uuidv4() };
+    setTransactions([...transactions, transactionWithId]);
   };
 
   const handleDeleteTransaction = (id) => {
-    // Remove the transaction with the given id from the transactions array.
     const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
     setTransactions(updatedTransactions);
   };
 
   const handleSort = (sortBy) => {
-    // Sort the transactions array based on the selected sorting option (category, description, or date).
     const sortedTransactions = [...transactions];
+  
     sortedTransactions.sort((a, b) => {
       if (sortBy === "date") {
         return new Date(a[sortBy]) - new Date(b[sortBy]);
+      } else if (sortBy === "amount") {
+        // Parse the amount values to numbers before sorting
+        return parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
       } else {
         return a[sortBy].localeCompare(b[sortBy]);
       }
     });
+  
     setTransactions(sortedTransactions);
   };
 
