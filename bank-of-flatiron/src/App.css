@@ -1,0 +1,125 @@
+/* App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  background-image: url(./images/pexels-aleksandar-pasaric-2872747.jpg);
+  background-size: cover; /* Make the background image cover the entire container */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-position: center center; /* Center the background image */
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #3e07c7;
+  font-weight: bold;
+  font-size: 45px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #de00b1;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+h2:first-of-type {
+  margin-top: 0;
+}
+
+h2 + * {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #1b262c;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+
+}
+
+thead {
+  background-color: #006e96;
+  color: #f0f0f0;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #7ccbff;
+}
+
+tbody tr:hover {
+  background-color: #6edef2;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 8px;
+  border: 1px solid #1b262c;
+  border-radius: 4px;
+}
+
+input[type="text"]::placeholder, input[type="number"]::placeholder {
+  color: #1b262c;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #0f4c75;
+  color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a43030;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form > * {
+  margin: 10px;
+}
+
+.form-group {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  th, td {
+    font-size: 12px;
+  }
+
+  input[type="text"], input[type="number"], button {
+    font-size: 12px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form > * {
+    width: 100%;
+  }
+}
