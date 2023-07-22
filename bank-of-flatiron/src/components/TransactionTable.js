@@ -1,6 +1,7 @@
+// TransactionTable.js
 import React from "react";
 
-const TransactionTable = ({ transactions, searchTerm }) => {
+const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSort }) => {
   const filteredTransactions = transactions.filter((transaction) =>
     transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -11,9 +12,16 @@ const TransactionTable = ({ transactions, searchTerm }) => {
       <table>
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Category</th>
+            <th>
+              <button onClick={() => onSort("description")}>Description</button>
+            </th>
+            <th>
+              <button onClick={() => onSort("amount")}>Amount</button>
+            </th>
+            <th>
+              <button onClick={() => onSort("category")}>Category</button>
+            </th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +30,9 @@ const TransactionTable = ({ transactions, searchTerm }) => {
               <td>{transaction.description}</td>
               <td>{transaction.amount}</td>
               <td>{transaction.category}</td>
+              <td>
+                <button onClick={() => onDeleteTransaction(transaction.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
