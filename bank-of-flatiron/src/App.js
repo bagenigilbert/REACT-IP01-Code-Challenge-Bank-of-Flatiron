@@ -1,6 +1,6 @@
 // App.js
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid"; // Import uuid
+import { v4 as uuidv4 } from "uuid";
 import TransactionTable from "./components/TransactionTable";
 import TransactionForm from "./components/TransactionForm";
 import SearchBar from "./components/SearchBar";
@@ -10,21 +10,27 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [transactions, setTransactions] = useState([]);
 
-  // Fetch initial data from db.json or your API endpoint.
-  useEffect(() => {
-    fetch("http://localhost:8001/transactions")
-      .then((response) => response.json())
-      .then((data) => setTransactions(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
-  // Load transactions from local storage when the component mounts.
+  // Fetch initial data from localStorage when the component mounts.
   useEffect(() => {
     const storedTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
-    setTransactions(storedTransactions);
+    if (storedTransactions.length === 0) {
+      // If there is no data in localStorage, fetch data from API (http://localhost:8001/transactions)
+      fetch("http://localhost:8001/transactions")
+        .then((response) => response.json())
+        .then((data) => {
+          // Assign unique IDs using uuid
+          const transactionsWithIds = data.map((transaction) => ({ ...transaction, id: uuidv4() }));
+          setTransactions(transactionsWithIds);
+          localStorage.setItem("transactions", JSON.stringify(transactionsWithIds));
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    } else {
+      // If there is data in localStorage, use it directly
+      setTransactions(storedTransactions);
+    }
   }, []);
 
-  // Store transactions in local storage whenever the transactions state changes.
+  // Store transactions in localStorage whenever the transactions state changes.
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, [transactions]);
@@ -42,18 +48,15 @@ const App = () => {
 
   const handleSort = (sortBy) => {
     const sortedTransactions = [...transactions];
-  
     sortedTransactions.sort((a, b) => {
       if (sortBy === "date") {
         return new Date(a[sortBy]) - new Date(b[sortBy]);
       } else if (sortBy === "amount") {
-        // Parse the amount values to numbers before sorting
-        return parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
+        return a[sortBy] - b[sortBy]; // Assuming amount is a number, not a string
       } else {
         return a[sortBy].localeCompare(b[sortBy]);
       }
     });
-  
     setTransactions(sortedTransactions);
   };
 
