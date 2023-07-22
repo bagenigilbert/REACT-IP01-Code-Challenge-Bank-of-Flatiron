@@ -21,6 +21,9 @@ const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSor
             <th>
               <button onClick={() => onSort("category")}>Category</button>
             </th>
+            <th>
+              <button onClick={() => onSort("date")}>Date</button>
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -30,6 +33,7 @@ const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSor
               <td>{transaction.description}</td>
               <td>{transaction.amount}</td>
               <td>{transaction.category}</td>
+              <td>{transaction.date}</td>
               <td>
                 <button onClick={() => onDeleteTransaction(transaction.id)}>Delete</button>
               </td>

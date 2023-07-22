@@ -30,9 +30,15 @@ const App = () => {
   };
 
   const handleSort = (sortBy) => {
-    // Sort the transactions array based on the selected sorting option (category or description).
+    // Sort the transactions array based on the selected sorting option (category, description, or date).
     const sortedTransactions = [...transactions];
-    sortedTransactions.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+    sortedTransactions.sort((a, b) => {
+      if (sortBy === "date") {
+        return new Date(a[sortBy]) - new Date(b[sortBy]);
+      } else {
+        return a[sortBy].localeCompare(b[sortBy]);
+      }
+    });
     setTransactions(sortedTransactions);
   };
 
