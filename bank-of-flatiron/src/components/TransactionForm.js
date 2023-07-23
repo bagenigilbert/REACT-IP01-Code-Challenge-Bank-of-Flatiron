@@ -1,6 +1,6 @@
 // TransactionForm.js
+
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid"; // Import uuid
 
 const TransactionForm = ({ onAddTransaction }) => {
   const [description, setDescription] = useState("");
@@ -11,7 +11,6 @@ const TransactionForm = ({ onAddTransaction }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTransaction = {
-      id: uuidv4(), // Generate a unique ID using uuid
       description,
       amount,
       category,

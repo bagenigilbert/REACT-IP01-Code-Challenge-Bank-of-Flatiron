@@ -1,4 +1,5 @@
 // TransactionTable.js
+
 import React from "react";
 
 const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSort }) => {
