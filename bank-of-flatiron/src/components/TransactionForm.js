@@ -50,7 +50,7 @@ const TransactionForm = ({ onAddTransaction }) => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
-        <button type="submit">Add Transaction</button>
+        <button type="submit" className="button-73">Add Transaction</button>
       </form>
     </div>
   );

@@ -14,16 +14,16 @@ const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSor
         <thead>
           <tr>
             <th>
-              <button onClick={() => onSort("description")}>Description</button>
+              <button onClick={() => onSort("description")} className="button-85">Description</button>
             </th>
             <th>
-              <button onClick={() => onSort("amount")}>Amount</button>
+              <button onClick={() => onSort("amount")} className="button-85">Amount</button>
             </th>
             <th>
-              <button onClick={() => onSort("category")}>Category</button>
+              <button onClick={() => onSort("category")} className="button-85">Category</button>
             </th>
             <th>
-              <button onClick={() => onSort("date")}>Date</button>
+              <button onClick={() => onSort("date")} className="button-85">Date</button>
             </th>
             <th>Actions</th>
           </tr>
@@ -36,7 +36,7 @@ const TransactionTable = ({ transactions, searchTerm, onDeleteTransaction, onSor
               <td>{transaction.category}</td>
               <td>{transaction.date}</td>
               <td>
-                <button onClick={() => onDeleteTransaction(transaction.id)}>Delete</button>
+                <button onClick={() => onDeleteTransaction(transaction.id)} className="button-78">Delete</button>
               </td>
             </tr>
           ))}

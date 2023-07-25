@@ -22,7 +22,7 @@ const SearchBar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch} className="button-56">Search</button>
     </div>
   );
 };
